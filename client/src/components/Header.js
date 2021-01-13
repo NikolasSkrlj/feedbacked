@@ -5,6 +5,7 @@ import Payments from "./Payments";
 
 class Header extends Component {
   renderContent() {
+    //this.props.auth je instanca usera koja se pri renderu odmah fetcha
     switch (this.props.auth) {
       case null:
         return;
@@ -22,6 +23,11 @@ class Header extends Component {
               <Payments />
             </li>
             <li>
+              <a className="btn disabled">
+                <b>Credits: {this.props.auth.credits}</b>
+              </a>
+            </li>
+            <li>
               <a href="/api/logout">Logout</a>
             </li>
           </>
@@ -29,10 +35,10 @@ class Header extends Component {
     }
   }
   render() {
-    console.log(this.props);
+    //console.log(this.props);
     return (
       <nav>
-        <div className="nav-wrapper">
+        <div className="nav-wrapper" style={{ paddingLeft: "15px" }}>
           {/* Ako je user logged in link ide na dashboard, ako nije ide na landing */}
           <Link
             to={this.props.auth ? "/surveys" : "/"}
