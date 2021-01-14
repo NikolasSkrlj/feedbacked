@@ -4,6 +4,7 @@ const { mongoURI, cookieKey } = require("./config/keys");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const cookieSession = require("cookie-session");
+const { globalPath } = require("./globalPath");
 
 const app = express();
 const cors = require("cors");
@@ -43,6 +44,11 @@ mongoose.connect(
     console.log("Connected to database!");
   }
 );
+
+app.use(express.static(path.join(globalPath, "/client/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(globalPath, "/client/build/index.html"));
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
