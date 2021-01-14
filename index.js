@@ -45,11 +45,12 @@ mongoose.connect(
     console.log("Connected to database!");
   }
 );
-
-app.use(express.static(path.join(globalPath, "/client/build")));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(globalPath, "/client/build/index.html"));
-});
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(globalPath, "/client/build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(globalPath, "/client/build/index.html"));
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
