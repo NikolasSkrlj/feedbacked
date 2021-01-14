@@ -25,14 +25,14 @@ app.use(passport.session());
 
 //routers
 const authRouter = require("./routes/authRoutes");
-const billingRoutes = require("./routes/billingRoutes");
+const billingRouter = require("./routes/billingRoutes");
 
 //login middleware
 const { requireLogin } = require("./middleware/requireLogin");
 
 //mounutanje routera
 app.use(authRouter);
-app.use(requireLogin, billingRoutes);
+app.use(billingRouter);
 
 mongoose.connect(
   process.env.MONGO_URI || mongoURI,
